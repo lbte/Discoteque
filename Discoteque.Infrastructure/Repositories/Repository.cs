@@ -1,9 +1,11 @@
-﻿using Discoteque.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-
-namespace Discoteque.Domain
+﻿namespace Discoteque.Infrastructure.Repositories
 {
+    using Domain;
+    using Domain.Models;
+    using EntityFramework;
+    using Microsoft.EntityFrameworkCore;
+    using System.Linq.Expressions;
+
     public class Repository<Tid, TEntity> : IRepository<Tid, TEntity>
     where Tid : struct
     where TEntity : BaseEntity<Tid>

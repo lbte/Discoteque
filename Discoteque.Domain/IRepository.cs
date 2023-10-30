@@ -1,8 +1,8 @@
-﻿using Discoteque.Domain.Models;
-using System.Linq.Expressions;
-
-namespace Discoteque.Domain
+﻿namespace Discoteque.Domain
 {
+    using Models;
+    using System.Linq.Expressions;
+
     public interface IRepository<Tid, TEntity>
     where Tid : struct
     where TEntity : BaseEntity<Tid>

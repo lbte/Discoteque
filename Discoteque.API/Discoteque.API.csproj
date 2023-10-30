@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Discoteque.Application\Discoteque.Application.csproj" />
     <ProjectReference Include="..\Discoteque.Domain\Discoteque.Domain.csproj" />
+    <ProjectReference Include="..\Discoteque.Infrastructure\Discoteque.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

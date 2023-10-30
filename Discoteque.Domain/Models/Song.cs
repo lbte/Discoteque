@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Discoteque.Domain.Models
+﻿namespace Discoteque.Domain.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
     public class Song : BaseEntity<int>
     {
         /// <summary>

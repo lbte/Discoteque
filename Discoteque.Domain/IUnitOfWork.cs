@@ -1,7 +1,6 @@
-﻿using Discoteque.Domain.Models;
-
-namespace Discoteque.Domain
+﻿namespace Discoteque.Domain
 {
+    using Models;
     public interface IUnitOfWork
     {
         IRepository<int, Artist> ArtistRepository { get; }

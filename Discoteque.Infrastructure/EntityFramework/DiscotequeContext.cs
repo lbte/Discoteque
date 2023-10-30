@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Discoteque.Domain.Models;
-
-namespace Discoteque.Domain
+﻿namespace Discoteque.Infrastructure.EntityFramework
 {
+    using Domain.Models;
+    using Microsoft.EntityFrameworkCore;
+
     public class DiscotequeContext : DbContext
     {
         // se hereda del sistema principal cómo se configura, el DbContext es el que hace todo lo de la bd

@@ -1,6 +1,8 @@
 using Discoteque.Application.IServices;
 using Discoteque.Application.Services;
 using Discoteque.Domain;
+using Discoteque.Infrastructure.EntityFramework;
+using Discoteque.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

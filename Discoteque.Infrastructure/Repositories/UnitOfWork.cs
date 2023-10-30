@@ -1,8 +1,10 @@
-﻿using Discoteque.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace Discoteque.Domain
+﻿namespace Discoteque.Infrastructure.Repositories
 {
+    using Discoteque.Domain;
+    using Discoteque.Domain.Models;
+    using Discoteque.Infrastructure.EntityFramework;
+    using Microsoft.EntityFrameworkCore;
+
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DiscotequeContext _context;

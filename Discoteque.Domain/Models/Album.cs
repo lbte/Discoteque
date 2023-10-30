@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Discoteque.Domain.Models
+﻿namespace Discoteque.Domain.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Album : BaseEntity<int>
     {
         /// <summary>
