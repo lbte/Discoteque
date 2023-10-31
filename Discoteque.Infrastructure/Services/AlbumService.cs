@@ -68,13 +68,13 @@
         }
 
         /// <summary>
-        /// Finds all albums released by <see cref="Artist.Name"/>
+        /// Finds all albums released by <see cref="Artist.Id"/>
         /// </summary>
-        /// <param name="artist">The name of the artist</param>
+        /// <param name="artist">The id of the artist</param>
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
-        public async Task<IEnumerable<Album>> GetAlbumsByArtist(string artist)
+        public async Task<IEnumerable<Album>> GetAlbumsByArtist(int artistId)
         {
-            return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.Artist.Name.ToLower().Equals(artist.ToLower()), x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
+            return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.ArtistId == artistId, x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
         public async Task<Album?> GetAlbumByNameAndArtistId(string albumName, int artistId)
         {
-            return await _unitOfWork.AlbumRepository.GetEntityAsync(x => x.Artist.Id == artistId && x.Name.ToLower().Equals(albumName.ToLower()));
+            return await _unitOfWork.AlbumRepository.GetEntityAsync(x => x.ArtistId == artistId && x.Name.ToLower().Equals(albumName.ToLower()));
         }
 
         /// <summary>
@@ -92,7 +92,7 @@
         /// </summary>
         /// <param name="genre"></param>
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
-        public async Task<IEnumerable<Album>> GetAlbumsByGenre(GenreEnum genre)
+        public async Task<IEnumerable<Album>> GetAlbumsByGenre(Genres genre)
         {
             return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.Genre.Equals(genre), x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
         }

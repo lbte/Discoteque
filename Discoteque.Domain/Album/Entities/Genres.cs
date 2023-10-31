@@ -3,7 +3,7 @@
     /// <summary>
     /// A collection of musical genres
     /// </summary>
-    public enum GenreEnum
+    public enum Genres
     {
         Rock,
         Metal,

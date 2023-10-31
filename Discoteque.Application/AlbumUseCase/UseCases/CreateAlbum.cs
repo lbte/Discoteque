@@ -38,7 +38,7 @@
                 Year = albumDto.Year
             };
 
-            await _albumService.CreateAlbum(newAlbum);
+             await _albumService.CreateAlbum(newAlbum);
         }
     }
 }

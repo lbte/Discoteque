@@ -32,14 +32,14 @@
         /// </summary>
         /// <param name="genre"></param>
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
-        Task<IEnumerable<Album>> GetAlbumsByGenre(GenreEnum genre);
+        Task<IEnumerable<Album>> GetAlbumsByGenre(Genres genre);
 
         /// <summary>
         /// Finds all albums released by <see cref="Artist.Name"/>
         /// </summary>
         /// <param name="artist">The name of the artist</param>
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
-        Task<IEnumerable<Album>> GetAlbumsByArtist(string artist);
+        Task<IEnumerable<Album>> GetAlbumsByArtist(int artistId);
         Task<Album?> GetAlbumByNameAndArtistId(string albumName, int artistId);
 
         /// <summary>

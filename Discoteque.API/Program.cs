@@ -3,8 +3,10 @@ using Discoteque.Infrastructure.Services;
 using Discoteque.Infrastructure.EntityFramework;
 using Discoteque.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Discoteque.Domain.Album;
 using Discoteque.Domain.Repositories;
+using Discoteque.Domain.Album.Entities;
+using Discoteque.Application.AlbumUseCase.Interfaces;
+using Discoteque.Application.AlbumUseCase.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,9 @@ builder.Services.AddScoped<IArtistService, ArtistService>();
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<ISongService, SongService>();
 builder.Services.AddScoped<ITourService, TourService>();
+builder.Services.AddScoped<ICreateAlbum, CreateAlbum>();
+builder.Services.AddScoped<IGetAlbum, GetAlbum>();
+builder.Services.AddScoped<IUpdateAlbum, UpdateAlbum>();
 
 var app = builder.Build();
 PopulateDb(app);
@@ -134,7 +139,7 @@ async void PopulateDb(WebApplication app)
 
         // Albums
         #region Karol G
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2017,
             Name = "Unstopabble",
@@ -142,14 +147,14 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2019,
             Name = "Ocean",
             ArtistId = 1,
             Genre = Genres.Urban
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2021,
             Name = "KG0516",
@@ -157,7 +162,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2023,
             Name = "Mañana será bonito",
@@ -169,7 +174,7 @@ async void PopulateDb(WebApplication app)
 
         #region Juanes
         // Juanes
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2000,
             Name = "Fijate Bien",
@@ -177,7 +182,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2002,
             Name = "Un día normal",
@@ -185,7 +190,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2004,
             Name = "Mi sangre",
@@ -193,7 +198,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2007,
             Name = "La vida... es un ratico",
@@ -201,7 +206,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2010,
             Name = "P.A.R.C.E",
@@ -209,7 +214,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2014,
             Name = "Loco de amor",
@@ -217,7 +222,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2017,
             Name = "Mis planes son amarte",
@@ -225,7 +230,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2019,
             Name = "Más futuro que pasado",
@@ -233,7 +238,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2021,
             Name = "Origen",
@@ -241,7 +246,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2023,
             Name = "Vida cotidiana",
@@ -252,7 +257,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Shakira
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1991,
             Name = "Magia",
@@ -260,7 +265,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1993,
             Name = "Peligro",
@@ -268,7 +273,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1995,
             Name = "Pies Descalzos",
@@ -276,7 +281,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1998,
             Name = "¿Dónde están los ladrones",
@@ -284,7 +289,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2001,
             Name = "Servicio de lavanderia",
@@ -292,7 +297,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2005,
             Name = "Fijación oral vol 1",
@@ -300,7 +305,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2009,
             Name = "Loba / She Wolf",
@@ -308,7 +313,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2010,
             Name = "Sale el sol",
@@ -316,7 +321,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2014,
             Name = "Shakira",
@@ -324,7 +329,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Rock,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2015,
             Name = "El Dorado",
@@ -335,7 +340,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Joe Arroyo
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1990,
             Name = "La guerra de los callados",
@@ -343,7 +348,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Salsa,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1992,
             Name = "La voz",
@@ -351,7 +356,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Salsa,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1976,
             Name = "El bárbaro",
@@ -359,7 +364,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Salsa,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1975,
             Name = "El grande",
@@ -367,7 +372,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Salsa,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1979,
             Name = "El teso",
@@ -378,7 +383,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Carlos Vives
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1993,
             Name = "Clásicos de la Provincia",
@@ -386,7 +391,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1995,
             Name = "la Tierra del olvido",
@@ -394,7 +399,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1997,
             Name = "Tengo fe",
@@ -402,7 +407,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1999,
             Name = "El amor de la tierra",
@@ -410,7 +415,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2001,
             Name = "Dejame entrar",
@@ -418,7 +423,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2009,
             Name = "Clásicos de la provincia",
@@ -426,7 +431,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2020,
             Name = "Cumbiana",
@@ -434,7 +439,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2022,
             Name = "Cumbiana II",
@@ -445,7 +450,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Silvestre Dangond
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2002,
             Name = "Tanto para ti",
@@ -453,7 +458,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2003,
             Name = "Lo mejor para los dos",
@@ -461,7 +466,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2006,
             Name = "el original",
@@ -469,7 +474,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Vallenato,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2010,
             Name = "Cantinero",
@@ -480,7 +485,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Fonseca
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2002,
             Name = "Fonseca",
@@ -488,7 +493,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Pop,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2005,
             Name = "Corazón",
@@ -496,7 +501,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Pop,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2008,
             Name = "Gratitud",
@@ -504,7 +509,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Pop,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2011,
             Name = "Ilusión",
@@ -515,7 +520,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Maluma
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2012,
             Name = "Magia",
@@ -523,7 +528,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2015,
             Name = "Pretty Boy, Dirty Boy",
@@ -531,7 +536,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2018,
             Name = "F.A.M.E.",
@@ -539,7 +544,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2019,
             Name = "11:11",
@@ -547,7 +552,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2020,
             Name = "Papi Juancho",
@@ -555,7 +560,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2023,
             Name = "Don Juan",
@@ -566,7 +571,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Andrés Cepeda
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 1999,
             Name = "Se morir",
@@ -574,7 +579,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Pop,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2001,
             Name = "El carpintero",
@@ -582,7 +587,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Pop,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2003,
             Name = "Canción rota",
@@ -590,7 +595,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Pop,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2005,
             Name = "Para amarte mejor",
@@ -601,7 +606,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region J Balvin
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2013,
             Name = "la familia",
@@ -609,7 +614,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2016,
             Name = "Energía",
@@ -617,7 +622,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2018,
             Name = "Vibras",
@@ -625,7 +630,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2020,
             Name = "Colores",
@@ -633,7 +638,7 @@ async void PopulateDb(WebApplication app)
             Genre = Genres.Urban,
             Cost = new Random().Next(1, 9) * 10_000
         });
-        await albumService.CreateAlbum(new Discoteque.Domain.Models.Album
+        await albumService.CreateAlbum(new Album
         {
             Year = 2021,
             Name = "Jose",

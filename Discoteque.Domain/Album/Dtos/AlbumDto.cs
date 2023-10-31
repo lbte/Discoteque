@@ -17,7 +17,7 @@ namespace Discoteque.Domain.Album.Dtos
         /// <summary>
         /// The <see cref="Genres"/> the album belongs to
         /// </summary>
-        public GenreEnum Genre { get; set; } = GenreEnum.Unkown;
+        public Genres Genre { get; set; } = Genres.Unkown;
 
         /// <summary>
         /// The cost of the album
