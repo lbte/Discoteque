@@ -1,7 +1,8 @@
 ﻿namespace Discoteque.Infrastructure.Repositories
 {
-    using Discoteque.Domain;
+    using Discoteque.Domain.Album.Entities;
     using Discoteque.Domain.Models;
+    using Discoteque.Domain.Repositories;
     using Discoteque.Infrastructure.EntityFramework;
     using Microsoft.EntityFrameworkCore;
 

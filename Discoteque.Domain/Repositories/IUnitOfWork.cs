@@ -1,5 +1,6 @@
-﻿namespace Discoteque.Domain
+﻿namespace Discoteque.Domain.Repositories
 {
+    using Discoteque.Domain.Album.Entities;
     using Models;
     public interface IUnitOfWork
     {

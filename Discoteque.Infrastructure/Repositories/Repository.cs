@@ -1,5 +1,6 @@
 ﻿namespace Discoteque.Infrastructure.Repositories
 {
+    using Discoteque.Domain.Repositories;
     using Domain;
     using Domain.Models;
     using EntityFramework;
@@ -68,6 +69,13 @@
             {
                 return await query.ToListAsync();
             }
+        }
+
+        public virtual async Task<TEntity?> GetEntityAsync(
+            Expression<Func<TEntity, bool>> filter)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            return await query.Where(filter).FirstOrDefaultAsync();
         }
 
         public virtual async Task Update(TEntity entity)

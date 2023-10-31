@@ -1,8 +1,8 @@
-﻿using Discoteque.Domain.Dto;
-using Discoteque.Domain.Models;
-
-namespace Discoteque.Application.IServices
+﻿namespace Discoteque.Application.IServices
 {
+    using Discoteque.Domain.Album.Entities;
+    using Domain.Dto;
+    using Domain.Models;
     public interface ISongService
     {
         /// <summary>

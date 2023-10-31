@@ -1,10 +1,11 @@
-﻿using Discoteque.Application.IServices;
-using Discoteque.Domain.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
-namespace Discoteque.API.Controllers
+﻿namespace Discoteque.API.Controllers
 {
+    using Application.IServices;
+    using Discoteque.Domain.Album.Entities;
+    using Domain.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Net;
+
     [Route("api/[controller]")]
     [ApiController]
     public class AlbumController : ControllerBase
@@ -17,23 +18,29 @@ namespace Discoteque.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAlbums")]
         public async Task<IActionResult> GetAlbums(bool areReferencesLoaded = false)
         {
             var albums = await _albumService.GetAlbumsAsync(areReferencesLoaded);
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, "There were no albums found to show");
         }
 
-        [HttpGet]
-        [Route("GetAlbumById")]
+        /// <summary>
+        /// Gets album by its unique id
+        /// </summary>
+        /// <param name="id">The album id</param>
+        /// <returns>The album requested</returns>
+        /// <response code="200">Returns the requested album</response>
+        /// <response code="400">No album was found</response>
+        [HttpGet("id={id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAlbumById(int id)
         {
             var album = await _albumService.GetById(id);
             return album != null ? Ok(album) : StatusCode(StatusCodes.Status404NotFound, $"There was no album found with the Id number {id}");
         }
 
-        [HttpGet]
-        [Route("GetAlbumsByYear")]
+        [HttpGet("year={year}")]
         public async Task<IActionResult> GetAlbumsByYear(int year)
         {
             var albums = await _albumService.GetAlbumsByYear(year);
@@ -41,32 +48,28 @@ namespace Discoteque.API.Controllers
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, "There were no albums found in this year");
         }
 
-        [HttpGet]
-        [Route("GetAlbumsByYearRange")]
+        [HttpGet("initialYear={initialYear}&finalYear={maxYear}")]
         public async Task<IActionResult> GetAlbumsByYearRange(int initialYear, int maxYear)
         {
             var albums = await _albumService.GetAlbumsByYearRange(initialYear, maxYear);
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, "There were no albums found in this year range");
         }
 
-        [HttpGet]
-        [Route("GetAlbumsByGenre")]
-        public async Task<IActionResult> GetAlbumsByGenre(Genres genre)
+        [HttpGet("genre={genre}")]
+        public async Task<IActionResult> GetAlbumsByGenre(GenreEnum genre)
         {
             var albums = await _albumService.GetAlbumsByGenre(genre);
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, $"There were no albums found with the genre {genre}");
         }
 
-        [HttpGet]
-        [Route("GetAlbumsByArtist")]
-        public async Task<IActionResult> GetAlbumsByArtist(string artist)
+        [HttpGet("artistName={artistName}")]
+        public async Task<IActionResult> GetAlbumsByArtist(string artistName)
         {
-            var albums = await _albumService.GetAlbumsByArtist(artist);
-            return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, $"There were no albums found from the artist {artist}");
+            var albums = await _albumService.GetAlbumsByArtist(artistName);
+            return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, $"There were no albums found from the artist {artistName}");
         }
 
         [HttpPost]
-        [Route("CreateAlbum")]
         public async Task<IActionResult> CreateAlbum(Album album)
         {
             var newAlbum = await _albumService.CreateAlbum(album);
@@ -74,7 +77,6 @@ namespace Discoteque.API.Controllers
         }
 
         [HttpPatch]
-        [Route("UpdateAlbum")]
         public async Task<IActionResult> UpdateAlbum(Album album)
         {
             var updatedAlbum = await _albumService.UpdateAlbum(album);

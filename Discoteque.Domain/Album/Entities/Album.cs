@@ -1,6 +1,7 @@
-﻿namespace Discoteque.Domain.Models
+﻿namespace Discoteque.Domain.Album.Entities
 {
     using System.ComponentModel.DataAnnotations.Schema;
+    using Discoteque.Domain.Models;
 
     public class Album : BaseEntity<int>
     {
@@ -17,7 +18,7 @@
         /// <summary>
         /// The <see cref="Genres"/> the album belongs to
         /// </summary>
-        public Genres Genre { get; set; } = Genres.Unkown;
+        public GenreEnum Genre { get; set; } = GenreEnum.Unkown;
 
         /// <summary>
         /// The cost of the album
@@ -34,24 +35,5 @@
         /// The <see cref="Artist"/> entity this album is referring to
         /// </summary>
         public virtual Artist? Artist { get; set; }
-        }
-
-        /// <summary>
-        /// A collection of musical genres
-        /// </summary>
-        public enum Genres
-        {
-            Rock,
-            Metal,
-            Salsa,
-            Bolero,
-            Merengue,
-            Urban,
-            Folk,
-            Indie,
-            Techno,
-            Pop,
-            Vallenato,
-            Unkown
-        }
+    }
 }

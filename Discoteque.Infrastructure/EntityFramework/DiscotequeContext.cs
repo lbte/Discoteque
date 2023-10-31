@@ -1,5 +1,6 @@
 ﻿namespace Discoteque.Infrastructure.EntityFramework
 {
+    using Discoteque.Domain.Album.Entities;
     using Domain.Models;
     using Microsoft.EntityFrameworkCore;
 

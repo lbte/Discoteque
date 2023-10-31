@@ -1,8 +1,8 @@
-﻿using Discoteque.Domain.Dto;
-using Discoteque.Domain.Models;
-
-namespace Discoteque.Application.IServices
+﻿namespace Discoteque.Application.IServices
 {
+    using Discoteque.Domain.Album.Entities;
+    using Domain.Dto;
+    using Domain.Models;
     public interface IAlbumService
     {
         /// <summary>
@@ -32,7 +32,7 @@ namespace Discoteque.Application.IServices
         /// </summary>
         /// <param name="genre"></param>
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
-        Task<IEnumerable<Album>> GetAlbumsByGenre(Genres genre);
+        Task<IEnumerable<Album>> GetAlbumsByGenre(GenreEnum genre);
 
         /// <summary>
         /// Finds all albums released by <see cref="Artist.Name"/>
@@ -40,6 +40,7 @@ namespace Discoteque.Application.IServices
         /// <param name="artist">The name of the artist</param>
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
         Task<IEnumerable<Album>> GetAlbumsByArtist(string artist);
+        Task<Album?> GetAlbumByNameAndArtistId(string albumName, int artistId);
 
         /// <summary>
         /// Finds an album by its id in the DB

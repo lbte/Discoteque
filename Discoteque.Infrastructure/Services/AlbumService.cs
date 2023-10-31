@@ -1,12 +1,14 @@
-﻿using Discoteque.Application.IServices;
-using Discoteque.Domain.Dto;
-using Discoteque.Domain.Models;
-using Discoteque.Domain;
-using System.Net;
-using System.Text.RegularExpressions;
-
-namespace Discoteque.Application.Services
+﻿namespace Discoteque.Infrastructure.Services
 {
+    using Application;
+    using Application.IServices;
+    using Domain.Album.Entities;
+    using Domain.Dto;
+    using Domain.Models;
+    using Domain.Repositories;
+    using System.Net;
+    using System.Text.RegularExpressions;
+
     public class AlbumService : IAlbumService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -28,9 +30,9 @@ namespace Discoteque.Application.Services
             try
             {
                 // the artist must exists
-                var artist = await _unitOfWork.ArtistRepository.FindAsync(newAlbum.ArtistId);
+                //var artist = await _unitOfWork.ArtistRepository.FindAsync(newAlbum.ArtistId);
 
-                if (artist == null || newAlbum.Cost < 0 || newAlbum.Year < 1905 || newAlbum.Year > 2023 || AreForbiddenWordsContained(newAlbum.Name))
+                if (newAlbum.Cost < 0 || newAlbum.Year < 1905 || newAlbum.Year > 2023 || AreForbiddenWordsContained(newAlbum.Name))
                 {
                     return BuildResponseClass<Album>.BuildResponse(HttpStatusCode.BadRequest, EntityMessageStatus.BAD_REQUEST_400);
                 }
@@ -76,11 +78,21 @@ namespace Discoteque.Application.Services
         }
 
         /// <summary>
+        /// Finds all albums released by <see cref="Artist.Name"/> 
+        /// </summary>
+        /// <param name="artist">The name of the artist</param>
+        /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
+        public async Task<Album?> GetAlbumByNameAndArtistId(string albumName, int artistId)
+        {
+            return await _unitOfWork.AlbumRepository.GetEntityAsync(x => x.Artist.Id == artistId && x.Name.ToLower().Equals(albumName.ToLower()));
+        }
+
+        /// <summary>
         /// Finds all albums with the assigned genre
         /// </summary>
         /// <param name="genre"></param>
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
-        public async Task<IEnumerable<Album>> GetAlbumsByGenre(Genres genre)
+        public async Task<IEnumerable<Album>> GetAlbumsByGenre(GenreEnum genre)
         {
             return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.Genre.Equals(genre), x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
         }

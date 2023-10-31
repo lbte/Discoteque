@@ -1,11 +1,13 @@
-﻿using Discoteque.Domain.Dto;
-using Discoteque.Domain.Models;
-using Discoteque.Domain;
-using System.Net;
-using Discoteque.Application.IServices;
-
-namespace Discoteque.Application.Services
+﻿namespace Discoteque.Infrastructure.Services
 {
+    using Application.IServices;
+    using Application;
+    using Domain.Dto;
+    using Domain.Models;
+    using Domain;
+    using System.Net;
+    using Discoteque.Domain.Repositories;
+
     public class ArtistService : IArtistService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -22,14 +24,6 @@ namespace Discoteque.Application.Services
         /// <returns>The created artist with an assigned id</returns>
         public async Task<EntityMessage<Artist>> CreateArtist(Artist artist)
         {
-            // create the instance
-            var newArtist = new Artist()
-            {
-                Name = artist.Name,
-                Label = artist.Label,
-                IsOnTour = artist.IsOnTour
-            };
-
             try
             {
                 if (artist.Name.Length > 100)
@@ -37,7 +31,7 @@ namespace Discoteque.Application.Services
                     return BuildResponseClass<Artist>.BuildResponse(HttpStatusCode.BadRequest, EntityMessageStatus.BAD_REQUEST_400);
                 }
 
-                await _unitOfWork.ArtistRepository.AddAsync(newArtist);
+                await _unitOfWork.ArtistRepository.AddAsync(artist);
                 await _unitOfWork.SaveAsync();
             }
             catch (Exception)
@@ -46,7 +40,7 @@ namespace Discoteque.Application.Services
             }
 
             // returns the artist that was created
-            return BuildResponseClass<Artist>.BuildResponse(HttpStatusCode.OK, EntityMessageStatus.OK_200, new() { newArtist });
+            return BuildResponseClass<Artist>.BuildResponse(HttpStatusCode.OK, EntityMessageStatus.OK_200, new() { artist });
         }
 
         /// <summary>

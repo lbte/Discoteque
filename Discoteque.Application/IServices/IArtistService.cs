@@ -1,8 +1,7 @@
-﻿using Discoteque.Domain.Dto;
-using Discoteque.Domain.Models;
-
-namespace Discoteque.Application.IServices
+﻿namespace Discoteque.Application.IServices
 {
+    using Domain.Dto;
+    using Domain.Models;
     public interface IArtistService
     {
         // Task es lo que le dice a la interfaz que se van a convertir en tasks asíncronos

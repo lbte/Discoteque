@@ -1,11 +1,14 @@
-﻿using Discoteque.Domain.Dto;
-using Discoteque.Domain.Models;
-using Discoteque.Domain;
-using System.Net;
-using Discoteque.Application.IServices;
-
-namespace Discoteque.Application.Services
+﻿namespace Discoteque.Infrastructure.Services
 {
+    using Application;
+    using Application.IServices;
+    using Domain.Dto;
+    using Domain.Models;
+    using Domain;
+    using System.Net;
+    using Discoteque.Domain.Album.Entities;
+    using Discoteque.Domain.Repositories;
+
     public class SongService : ISongService
     {
         private readonly IUnitOfWork _unitOfWork;
