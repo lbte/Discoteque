@@ -7,6 +7,7 @@
     using Domain;
     using System.Net;
     using Discoteque.Domain.Repositories;
+    using Discoteque.Domain.Artist.Entities;
 
     public class ArtistService : IArtistService
     {

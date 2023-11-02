@@ -24,11 +24,11 @@
             await _dbSet.AddAsync(entity);
         }
 
-        public virtual async Task Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
             if (_context.Entry(entity).State == EntityState.Detached)
             {
-                _dbSet.Attach(entity);
+                 _dbSet.Attach(entity);
             }
             _dbSet.Remove(entity);
         }
@@ -39,7 +39,7 @@
             Delete(entityToDelete);
         }
 
-        public virtual async Task<TEntity> FindAsync(Tid id)
+        public virtual async Task<TEntity?> FindAsync(Tid id)
         {
             return await _dbSet.FindAsync(id);
         }

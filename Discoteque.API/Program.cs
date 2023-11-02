@@ -1,12 +1,12 @@
 using Discoteque.Application.IServices;
-using Discoteque.Infrastructure.Services;
 using Discoteque.Infrastructure.EntityFramework;
-using Discoteque.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Discoteque.Domain.Repositories;
+using Discoteque.Infrastructure.Extensions;
 using Discoteque.Domain.Album.Entities;
-using Discoteque.Application.AlbumUseCase.Interfaces;
-using Discoteque.Application.AlbumUseCase.UseCases;
+using Discoteque.Domain.Artist.Entities;
+using Discoteque.Domain.Song.Entities;
+using Discoteque.Domain.Tour.Entities;
+using Discoteque.API.Middlewares.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,14 +24,8 @@ builder.Services.AddDbContext<DiscotequeContext>(
 );
 
 // dependency injection
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IArtistService, ArtistService>();
-builder.Services.AddScoped<IAlbumService, AlbumService>();
-builder.Services.AddScoped<ISongService, SongService>();
-builder.Services.AddScoped<ITourService, TourService>();
-builder.Services.AddScoped<ICreateAlbum, CreateAlbum>();
-builder.Services.AddScoped<IGetAlbum, GetAlbum>();
-builder.Services.AddScoped<IUpdateAlbum, UpdateAlbum>();
+builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 PopulateDb(app);
@@ -42,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
@@ -66,70 +61,70 @@ async void PopulateDb(WebApplication app)
         var tourService = scope.ServiceProvider.GetRequiredService<ITourService>();
 
         // Artists
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 1,
             Name = "Karol G",
             Label = "Universal Music Latin",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 2,
             Name = "Juanes",
             Label = "Universal Music Group",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 3,
             Name = "Shakira",
             Label = "Sony Music",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 4,
             Name = "Joe Arroyo",
             Label = "AVAYA",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 5,
             Name = "Carlos Vives",
             Label = "EMI/Virgin",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 6,
             Name = "Silvestre Dangond",
             Label = "SONY Music",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 7,
             Name = "Fonseca",
             Label = "SONY BMG",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 8,
             Name = "Maluma",
             Label = "RCA",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 9,
             Name = "Andrés Cepeda",
             Label = "SONY BMG",
             IsOnTour = true
         });
-        await artistService.CreateArtist(new Discoteque.Domain.Models.Artist
+        await artistService.CreateArtist(new Artist
         {
             Id = 10,
             Name = "J Balvin",
@@ -649,25 +644,25 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Songs
-        await songService.CreateSong(new Discoteque.Domain.Models.Song
+        await songService.CreateSong(new Song
         {
             Name = "Mientras me curo del cora",
             Length = 164,
             AlbumId = 4
         });
-        await songService.CreateSong(new Discoteque.Domain.Models.Song
+        await songService.CreateSong(new Song
         {
             Name = "Mañana será bonito",
             Length = 210,
             AlbumId = 4
         });
-        await songService.CreateSong(new Discoteque.Domain.Models.Song
+        await songService.CreateSong(new Song
         {
             Name = "A Dios le pido",
             Length = 206,
             AlbumId = 4
         });
-        await songService.CreateSong(new Discoteque.Domain.Models.Song
+        await songService.CreateSong(new Song
         {
             Name = "Mala gente",
             Length = 198,
@@ -676,7 +671,7 @@ async void PopulateDb(WebApplication app)
         #endregion
 
         #region Tour
-        await tourService.CreateTour(new Discoteque.Domain.Models.Tour
+        await tourService.CreateTour(new Tour
         {
             Name = "Mientras me curo del cora",
             City = "Medellin",
@@ -684,7 +679,7 @@ async void PopulateDb(WebApplication app)
             IsSoldOut = true,
             ArtistId = 1
         });
-        await tourService.CreateTour(new Discoteque.Domain.Models.Tour
+        await tourService.CreateTour(new Tour
         {
             Name = "Juanes & Morat",
             City = "Medellin",

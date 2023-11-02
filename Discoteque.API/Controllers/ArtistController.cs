@@ -1,6 +1,7 @@
 ﻿namespace Discoteque.API.Controllers
 {
     using Application.IServices;
+    using Discoteque.Domain.Artist.Entities;
     using Domain.Models;
     using Microsoft.AspNetCore.Mvc;
     using System.Net;

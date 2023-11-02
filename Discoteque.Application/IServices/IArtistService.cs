@@ -1,5 +1,6 @@
 ﻿namespace Discoteque.Application.IServices
 {
+    using Discoteque.Domain.Artist.Entities;
     using Domain.Dto;
     using Domain.Models;
     public interface IArtistService

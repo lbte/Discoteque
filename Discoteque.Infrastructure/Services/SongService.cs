@@ -8,6 +8,7 @@
     using System.Net;
     using Discoteque.Domain.Album.Entities;
     using Discoteque.Domain.Repositories;
+    using Discoteque.Domain.Song.Entities;
 
     public class SongService : ISongService
     {

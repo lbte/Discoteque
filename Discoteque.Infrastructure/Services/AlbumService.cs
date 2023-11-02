@@ -2,6 +2,7 @@
 {
     using Application;
     using Application.IServices;
+    using Discoteque.Domain.Artist.Entities;
     using Domain.Album.Entities;
     using Domain.Dto;
     using Domain.Models;
@@ -31,7 +32,7 @@
             {
                 // the artist must exists
                 //var artist = await _unitOfWork.ArtistRepository.FindAsync(newAlbum.ArtistId);
-
+                // TODO DDD
                 if (newAlbum.Cost < 0 || newAlbum.Year < 1905 || newAlbum.Year > 2023 || AreForbiddenWordsContained(newAlbum.Name))
                 {
                     return BuildResponseClass<Album>.BuildResponse(HttpStatusCode.BadRequest, EntityMessageStatus.BAD_REQUEST_400);
@@ -84,7 +85,7 @@
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
         public async Task<Album?> GetAlbumByNameAndArtistId(string albumName, int artistId)
         {
-            return await _unitOfWork.AlbumRepository.GetEntityAsync(x => x.ArtistId == artistId && x.Name.ToLower().Equals(albumName.ToLower()));
+            return await _unitOfWork.AlbumRepository.GetEntityAsync(x => string.Equals(x.Name, albumName, StringComparison.OrdinalIgnoreCase) && x.ArtistId == artistId);
         }
 
         /// <summary>

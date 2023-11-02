@@ -1,6 +1,7 @@
 ﻿namespace Discoteque.Domain.Album.Entities
 {
     using System.ComponentModel.DataAnnotations.Schema;
+    using Discoteque.Domain.Artist.Entities;
     using Discoteque.Domain.Models;
 
     public class Album : BaseEntity<int>

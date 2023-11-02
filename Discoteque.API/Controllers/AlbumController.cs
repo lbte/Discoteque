@@ -76,20 +76,20 @@
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, $"There were no albums found from the artist {artistId}");
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> CreateAlbum(Album album)
+        public async Task<IActionResult> CreateAlbum(AlbumDto album)
         {
-            //var newAlbum = await _createAlbum.ExecuteAsync(album);
-            var newAlbum = await _albumService.CreateAlbum(album);
-            return newAlbum.StatusCode == HttpStatusCode.OK ? Ok(newAlbum) : StatusCode((int)newAlbum.StatusCode, newAlbum);
+            await _createAlbum.ExecuteAsync(album);
+            return Ok("Album created successfully");
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateAlbum(Album album)
+        public async Task<ActionResult<Album>> UpdateAlbum(AlbumDto album)
         {
-            //var updatedAlbum = await _updateAlbum.ExecuteAsync(album);
-            var updatedAlbum = await _albumService.UpdateAlbum(album);
-            return updatedAlbum != null ? Ok(updatedAlbum) : StatusCode(StatusCodes.Status404NotFound, "The album was not updated"); ;
+            var updatedAlbum = await _updateAlbum.ExecuteAsync(album);
+            //return updatedAlbum != null ? Ok(updatedAlbum) : StatusCode(StatusCodes.Status404NotFound, "The album was not updated"); 
+            return Ok(updatedAlbum);
         }
     }
 }

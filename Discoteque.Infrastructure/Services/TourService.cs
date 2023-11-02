@@ -7,6 +7,8 @@
     using Domain;
     using System.Net;
     using Discoteque.Domain.Repositories;
+    using Discoteque.Domain.Artist.Entities;
+    using Discoteque.Domain.Tour.Entities;
 
     public class TourService : ITourService
     {

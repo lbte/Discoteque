@@ -4,6 +4,6 @@
     using Domain.Album.Entities;
     public interface IUpdateAlbum
     {
-        Task<Album> ExecuteAsync(AlbumDto albumDto);
+        Task<Album?> ExecuteAsync(AlbumDto albumDto);
     }
 }

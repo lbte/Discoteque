@@ -1,8 +1,10 @@
 ﻿namespace Discoteque.Infrastructure.Repositories
 {
     using Discoteque.Domain.Album.Entities;
-    using Discoteque.Domain.Models;
+    using Discoteque.Domain.Artist.Entities;
     using Discoteque.Domain.Repositories;
+    using Discoteque.Domain.Song.Entities;
+    using Discoteque.Domain.Tour.Entities;
     using Discoteque.Infrastructure.EntityFramework;
     using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,6 @@
-﻿namespace Discoteque.Domain.Models
+﻿using Discoteque.Domain.Models;
+
+namespace Discoteque.Domain.Artist.Entities
 {
     public class Artist : BaseEntity<int>
     {

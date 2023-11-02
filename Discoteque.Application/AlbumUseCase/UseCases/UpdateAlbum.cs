@@ -11,10 +11,19 @@
         {
             _albumService = albumService;
         }
-        public async Task<Album> ExecuteAsync(AlbumDto albumDto)
+        public async Task<Album?> ExecuteAsync(AlbumDto albumDto)
         {
-            //return await _albumService.UpdateAlbum(albumDto);
-            throw new NotImplementedException();
+            var album = await _albumService.GetAlbumByNameAndArtistId(albumDto.Name, albumDto.ArtistId);
+            if (album is null)
+            {
+                return null; //TODO
+            }
+            album.Name = albumDto.Name;
+            album.Year = albumDto.Year;
+            album.Genre = albumDto.Genre;
+            album.Cost = albumDto.Cost;
+
+            return await _albumService.UpdateAlbum(album);
         }
     }
 }

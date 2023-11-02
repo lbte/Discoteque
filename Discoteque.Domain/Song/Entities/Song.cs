@@ -1,4 +1,6 @@
-﻿namespace Discoteque.Domain.Models
+﻿using Discoteque.Domain.Models;
+
+namespace Discoteque.Domain.Song.Entities
 {
     using System.ComponentModel.DataAnnotations.Schema;
     using Discoteque.Domain.Album.Entities;
