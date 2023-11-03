@@ -1,6 +1,7 @@
 ﻿namespace Discoteque.API.Middlewares.Exceptions
 {
     using Application.Shared.Exceptions;
+    using Discoteque.Domain.Album.Exceptions;
     using System.Net;
     public class ExceptionMiddleware
     {
@@ -25,7 +26,12 @@
             catch (AlreadyExistsException ex)
             {
                 _logger.LogError($"Something went wrong: {ex}");
-                await HandleExceptionAsync(httpContext, ex, HttpStatusCode.Conflict); // https://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
+                await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest); // https://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
+            }
+            catch (InvalidYearException ex)
+            {
+                _logger.LogError($"Something went wrong: {ex}");
+                await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest);
             }
             catch (Exception ex)
             {

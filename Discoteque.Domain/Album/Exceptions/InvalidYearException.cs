@@ -5,28 +5,28 @@
     using System.Runtime.Serialization;
 
     [Serializable]
-    public class InvalidYearRangeException : BusinessException
+    public class InvalidYearException : BusinessException
     {
-        public InvalidYearRangeException() : base("Invalid Year Range for creating an album")
+        public InvalidYearException() : base("Invalid year range for an album")
         {
         }
 
-        public InvalidYearRangeException(string message)
+        public InvalidYearException(string message)
             : base(message)
         {
         }
-        public InvalidYearRangeException(short min, short max)
+        public InvalidYearException(int min, int max)
             : base($"The required year range is from {min} to {max}.")
         {
         }
 
-        public InvalidYearRangeException(string message, Exception innerException)
+        public InvalidYearException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
         [ExcludeFromCodeCoverage]
-        protected InvalidYearRangeException(SerializationInfo info, StreamingContext context)
+        protected InvalidYearException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
