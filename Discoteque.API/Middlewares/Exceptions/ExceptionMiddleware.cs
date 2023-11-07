@@ -2,14 +2,15 @@
 {
     using Application.Shared.Exceptions;
     using Discoteque.Domain.Album.Exceptions;
+    using Serilog;
     using System.Net;
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<ExceptionMiddleware> _logger;
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
+        //private readonly ILogger<ExceptionMiddleware> _logger;
+        public ExceptionMiddleware(RequestDelegate next)//, ILogger<ExceptionMiddleware> logger)
         {
-            _logger = logger;
+            //_logger = logger;
             _next = next;
         }
         public async Task InvokeAsync(HttpContext httpContext)
@@ -20,22 +21,22 @@
             }
             catch (NotFoundException ex)
             {
-                _logger.LogError($"Something went wrong: {ex}");
+                Log.Error($"Something went wrong: {ex}");
                 await HandleExceptionAsync(httpContext, ex, HttpStatusCode.NotFound);
             }
             catch (AlreadyExistsException ex)
             {
-                _logger.LogError($"Something went wrong: {ex}");
+                Log.Error($"Something went wrong: {ex}");
                 await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest); // https://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
             }
             catch (InvalidYearException ex)
             {
-                _logger.LogError($"Something went wrong: {ex}");
+                Log.Error($"Something went wrong: {ex}");
                 await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something went wrong: {ex}");
+                Log.Error($"Something went wrong: {ex}");
                 await HandleExceptionAsync(httpContext);
             }
         }

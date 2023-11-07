@@ -5,17 +5,18 @@
     using Discoteque.Application.Shared.Exceptions;
     using Domain.Album.Dtos;
     using Domain.Album.Entities;
-    using Microsoft.Extensions.Logging;
+    //using Microsoft.Extensions.Logging;
+    using Serilog;
 
     public class UpdateAlbum : IUpdateAlbum
     {
         private readonly IAlbumService _albumService;
-        private readonly ILogger<UpdateAlbum> _logger;
+        //private readonly ILogger<UpdateAlbum> _logger;
 
-        public UpdateAlbum(IAlbumService albumService, ILogger<UpdateAlbum> logger)
+        public UpdateAlbum(IAlbumService albumService)//, ILogger<UpdateAlbum> logger)
         {
             _albumService = albumService;
-            _logger = logger;
+            //_logger = logger;
         }
         public async Task<Album?> ExecuteAsync(AlbumDto albumDto)
         {
@@ -23,7 +24,7 @@
             if (album is null)
             {
                 var exceptionMessage = $"The album you're trying to update was not found.";
-                _logger.LogError(exceptionMessage);
+                Log.Error(exceptionMessage);
                 throw new NotFoundException(exceptionMessage);
             }
             album.Name = albumDto.Name;

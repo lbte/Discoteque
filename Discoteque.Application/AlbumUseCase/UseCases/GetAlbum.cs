@@ -6,6 +6,7 @@
     using Interfaces;
     using IServices;
     using Microsoft.Extensions.Logging;
+    using Serilog;
     using Shared.Exceptions;
     using System.Threading.Tasks;
 
@@ -13,25 +14,27 @@
     {
         private readonly IAlbumService _albumService;
         private readonly IArtistService _artistService;
-        private readonly ILogger<GetAlbum> _logger;
-        public GetAlbum(IAlbumService albumService, IArtistService artistService, ILogger<GetAlbum> logger)
+        //private readonly ILogger<GetAlbum> _logger;
+        public GetAlbum(IAlbumService albumService, IArtistService artistService) //, ILogger<GetAlbum> logger)
         {
             _albumService = albumService;
             _artistService = artistService;
-            _logger = logger;
+            //_logger = logger;
         }
         public async Task<IEnumerable<Album>> AllAsync(bool areReferencesLoaded)
         {
+            Log.Information("Getting all albums in the database");
             return await _albumService.GetAlbumsAsync(areReferencesLoaded);
         }
 
         public async Task<IEnumerable<Album>> ByArtistAsync(int artistId)
         {
+            Log.Information("Getting Album by Artist...");
             var artist = await _artistService.GetById(artistId);
             if (artist is null) 
             {
                 var exceptionMessage = $"Artist with id {artistId} was not found.";
-                _logger.LogError(exceptionMessage);
+                Log.Error(exceptionMessage);
                 throw new NotFoundException(exceptionMessage);
             }
 
@@ -43,7 +46,7 @@
             if (!System.Enum.IsDefined(typeof(Genres), genre)) 
             {
                 var exceptionMessage = $"Album with genre {genre} was not found.";
-                _logger.LogError(exceptionMessage);
+                Log.Error(exceptionMessage);
                 throw new NotFoundException(exceptionMessage);
             }
             return await _albumService.GetAlbumsByGenre(genre);
@@ -55,7 +58,7 @@
             if (album is null)
             {
                 var exceptionMessage = $"Album with id {id} was not found.";
-                _logger.LogError(exceptionMessage);
+                Log.Error(exceptionMessage);
                 throw new NotFoundException(exceptionMessage);
             }
             return album;
@@ -67,7 +70,7 @@
             var maxValidYear = DateTime.Now.Year;
             if (year < minValidYear || year > maxValidYear) 
             {
-                _logger.LogError($"Year not defined in range: [{minValidYear}, {maxValidYear}]");
+                Log.Error($"Year not defined in range: [{minValidYear}, {maxValidYear}]");
                 throw new InvalidYearException(minValidYear, maxValidYear);
             }
             return await _albumService.GetAlbumsByYear(year);
@@ -79,7 +82,7 @@
             var maxValidYear = DateTime.Now.Year;
             if (initialYear < minValidYear || maxYear > maxValidYear)
             {
-                _logger.LogError($"Year range provided ({initialYear}, {maxYear}) not defined in range: [{minValidYear}, {maxValidYear}]");
+                Log.Error($"Year range provided ({initialYear}, {maxYear}) not defined in range: [{minValidYear}, {maxValidYear}]");
                 throw new InvalidYearException(minValidYear, maxValidYear);
             }
             return await _albumService.GetAlbumsByYearRange(initialYear, maxYear);

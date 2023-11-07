@@ -7,11 +7,18 @@ using Discoteque.Domain.Artist.Entities;
 using Discoteque.Domain.Song.Entities;
 using Discoteque.Domain.Tour.Entities;
 using Discoteque.API.Middlewares.Exceptions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    //.WriteTo.Console()
+    //.WriteTo.File("logs/loggings.txt")
+    .CreateLogger();
 
+// Add services to the container
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
