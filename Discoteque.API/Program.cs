@@ -14,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
+    //.Enrich.WithThreadId()
+    //.Enrich.WithThreadName()
     //.WriteTo.Console()
     //.WriteTo.File("logs/loggings.txt")
     .CreateLogger();
@@ -34,6 +36,10 @@ builder.Services.AddDbContext<DiscotequeContext>(
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
 
+// HealthCheck for confirmation that the app can communicate with a DB configured with EFCore DbContext
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<DiscotequeContext>();
+
 var app = builder.Build();
 PopulateDb(app);
 
@@ -50,6 +56,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health");
 
 app.Run();
 
