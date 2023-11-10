@@ -1,7 +1,7 @@
 ﻿namespace Discoteque.Infrastructure.Extensions
 {
     using Application.IServices;
-    using Discoteque.Application.Extensions;
+    using Application.Extensions;
     using Domain.Repositories;
     using Infrastructure.Repositories;
     using Infrastructure.Services;

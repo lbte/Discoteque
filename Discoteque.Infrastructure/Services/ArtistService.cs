@@ -3,8 +3,6 @@
     using Application.IServices;
     using Application;
     using Domain.Dto;
-    using Domain.Models;
-    using Domain;
     using System.Net;
     using Discoteque.Domain.Repositories;
     using Discoteque.Domain.Artist.Entities;
@@ -39,8 +37,6 @@
             {
                 return BuildResponseClass<Artist>.BuildResponse(HttpStatusCode.InternalServerError, EntityMessageStatus.INTERNAL_SERVER_ERROR_500);
             }
-
-            // returns the artist that was created
             return BuildResponseClass<Artist>.BuildResponse(HttpStatusCode.OK, EntityMessageStatus.OK_200, new() { artist });
         }
 

@@ -1,11 +1,9 @@
 ﻿namespace Discoteque.Application.AlbumUseCase.UseCases
 {
-    using Discoteque.Domain.Artist.Entities;
     using Domain.Album.Entities;
     using Domain.Album.Exceptions;
     using Interfaces;
     using IServices;
-    using Microsoft.Extensions.Logging;
     using Serilog;
     using Shared.Exceptions;
     using System.Threading.Tasks;
@@ -14,12 +12,10 @@
     {
         private readonly IAlbumService _albumService;
         private readonly IArtistService _artistService;
-        //private readonly ILogger<GetAlbum> _logger;
-        public GetAlbum(IAlbumService albumService, IArtistService artistService) //, ILogger<GetAlbum> logger)
+        public GetAlbum(IAlbumService albumService, IArtistService artistService)
         {
             _albumService = albumService;
             _artistService = artistService;
-            //_logger = logger;
         }
         public async Task<IEnumerable<Album>> AllAsync(bool areReferencesLoaded)
         {

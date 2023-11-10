@@ -1,8 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
-
-namespace Discoteque.Application.Shared.Exceptions
+﻿namespace Discoteque.Application.Shared.Exceptions
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.Serialization;
     [Serializable]
     public class NotFoundException : Exception
     {

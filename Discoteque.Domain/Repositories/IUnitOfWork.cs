@@ -1,10 +1,9 @@
 ﻿namespace Discoteque.Domain.Repositories
 {
-    using Discoteque.Domain.Album.Entities;
-    using Discoteque.Domain.Artist.Entities;
-    using Discoteque.Domain.Song.Entities;
-    using Discoteque.Domain.Tour.Entities;
-    using Models;
+    using Album.Entities;
+    using Artist.Entities;
+    using Song.Entities;
+    using Tour.Entities;
     public interface IUnitOfWork
     {
         IRepository<int, Artist> ArtistRepository { get; }

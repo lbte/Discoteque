@@ -1,8 +1,5 @@
 ﻿namespace Discoteque.Domain.Album.Entities
 {
-    /// <summary>
-    /// A collection of musical genres
-    /// </summary>
     public enum Genres
     {
         Rock,

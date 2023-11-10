@@ -1,23 +1,21 @@
 ﻿namespace Discoteque.Application.AlbumUseCase.UseCases
 {
-    using Application.AlbumUseCase.Interfaces;
-    using Application.IServices;
-    using Discoteque.Application.Shared.Exceptions;
+    using AlbumUseCase.Interfaces;
+    using IServices;
+    using Shared.Exceptions;
     using Domain.Album.Dtos;
     using Domain.Album.Entities;
-    //using Microsoft.Extensions.Logging;
     using Serilog;
 
     public class UpdateAlbum : IUpdateAlbum
     {
         private readonly IAlbumService _albumService;
-        //private readonly ILogger<UpdateAlbum> _logger;
 
-        public UpdateAlbum(IAlbumService albumService)//, ILogger<UpdateAlbum> logger)
+        public UpdateAlbum(IAlbumService albumService)
         {
             _albumService = albumService;
-            //_logger = logger;
         }
+
         public async Task<Album?> ExecuteAsync(AlbumDto albumDto)
         {
             var album = await _albumService.GetAlbumByNameAndArtistId(albumDto.Name, albumDto.ArtistId);
@@ -28,7 +26,7 @@
                 throw new NotFoundException(exceptionMessage);
             }
             album.Name = albumDto.Name;
-            album.Year = albumDto.Year;
+            album.YearPublished = albumDto.YearPublished;
             album.Genre = albumDto.Genre;
             album.Cost = albumDto.Cost;
 

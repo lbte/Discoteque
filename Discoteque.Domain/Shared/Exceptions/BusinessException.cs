@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
-
-namespace Discoteque.Domain.Shared.Exceptions
+﻿namespace Discoteque.Domain.Shared.Exceptions
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.Serialization;
+
     [Serializable]
     public class BusinessException : Exception
     {

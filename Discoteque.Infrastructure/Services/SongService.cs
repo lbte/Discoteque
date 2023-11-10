@@ -3,12 +3,10 @@
     using Application;
     using Application.IServices;
     using Domain.Dto;
-    using Domain.Models;
-    using Domain;
     using System.Net;
-    using Discoteque.Domain.Album.Entities;
-    using Discoteque.Domain.Repositories;
-    using Discoteque.Domain.Song.Entities;
+    using Domain.Album.Entities;
+    using Domain.Repositories;
+    using Domain.Song.Entities;
 
     public class SongService : ISongService
     {
@@ -118,7 +116,7 @@
         /// <returns>A <see cref="List" /> of <see cref="Song"/> </returns>
         public async Task<IEnumerable<Song>> GetSongsByYear(int year)
         {
-            return await _unitOfWork.SongRepository.GetAllAsync(x => x.Album.Year == year, includeProperties: new Album().GetType().Name);
+            return await _unitOfWork.SongRepository.GetAllAsync(x => x.Album.YearPublished == year, includeProperties: new Album().GetType().Name);
         }
 
         /// <summary>

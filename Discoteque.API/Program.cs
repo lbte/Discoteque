@@ -14,20 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
-    //.Enrich.WithThreadId()
-    //.Enrich.WithThreadName()
-    //.WriteTo.Console()
-    //.WriteTo.File("logs/loggings.txt")
     .CreateLogger();
 
-// Add services to the container
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add database and the model is DiscotequeContext and the type of database is UseInMemoryDatabase
-// in memory database
 builder.Services.AddDbContext<DiscotequeContext>(
     opt => { opt.UseInMemoryDatabase("Discoteque"); }
 );
@@ -151,7 +144,7 @@ async void PopulateDb(WebApplication app)
         #region Karol G
         await albumService.CreateAlbum(new Album
         {
-            Year = 2017,
+            YearPublished = 2017,
             Name = "Unstopabble",
             ArtistId = 1,
             Genre = Genres.Urban,
@@ -159,14 +152,14 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2019,
+            YearPublished = 2019,
             Name = "Ocean",
             ArtistId = 1,
             Genre = Genres.Urban
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2021,
+            YearPublished = 2021,
             Name = "KG0516",
             ArtistId = 1,
             Genre = Genres.Urban,
@@ -174,7 +167,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2023,
+            YearPublished = 2023,
             Name = "Mañana será bonito",
             ArtistId = 1,
             Genre = Genres.Urban,
@@ -186,7 +179,7 @@ async void PopulateDb(WebApplication app)
         // Juanes
         await albumService.CreateAlbum(new Album
         {
-            Year = 2000,
+            YearPublished = 2000,
             Name = "Fijate Bien",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -194,7 +187,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2002,
+            YearPublished = 2002,
             Name = "Un día normal",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -202,7 +195,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2004,
+            YearPublished = 2004,
             Name = "Mi sangre",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -210,7 +203,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2007,
+            YearPublished = 2007,
             Name = "La vida... es un ratico",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -218,7 +211,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2010,
+            YearPublished = 2010,
             Name = "P.A.R.C.E",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -226,7 +219,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2014,
+            YearPublished = 2014,
             Name = "Loco de amor",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -234,7 +227,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2017,
+            YearPublished = 2017,
             Name = "Mis planes son amarte",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -242,7 +235,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2019,
+            YearPublished = 2019,
             Name = "Más futuro que pasado",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -250,7 +243,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2021,
+            YearPublished = 2021,
             Name = "Origen",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -258,7 +251,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2023,
+            YearPublished = 2023,
             Name = "Vida cotidiana",
             ArtistId = 2,
             Genre = Genres.Rock,
@@ -269,7 +262,7 @@ async void PopulateDb(WebApplication app)
         #region Shakira
         await albumService.CreateAlbum(new Album
         {
-            Year = 1991,
+            YearPublished = 1991,
             Name = "Magia",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -277,7 +270,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1993,
+            YearPublished = 1993,
             Name = "Peligro",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -285,7 +278,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1995,
+            YearPublished = 1995,
             Name = "Pies Descalzos",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -293,7 +286,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1998,
+            YearPublished = 1998,
             Name = "¿Dónde están los ladrones",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -301,7 +294,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2001,
+            YearPublished = 2001,
             Name = "Servicio de lavanderia",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -309,7 +302,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2005,
+            YearPublished = 2005,
             Name = "Fijación oral vol 1",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -317,7 +310,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2009,
+            YearPublished = 2009,
             Name = "Loba / She Wolf",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -325,7 +318,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2010,
+            YearPublished = 2010,
             Name = "Sale el sol",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -333,7 +326,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2014,
+            YearPublished = 2014,
             Name = "Shakira",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -341,7 +334,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2015,
+            YearPublished = 2015,
             Name = "El Dorado",
             ArtistId = 3,
             Genre = Genres.Rock,
@@ -352,7 +345,7 @@ async void PopulateDb(WebApplication app)
         #region Joe Arroyo
         await albumService.CreateAlbum(new Album
         {
-            Year = 1990,
+            YearPublished = 1990,
             Name = "La guerra de los callados",
             ArtistId = 4,
             Genre = Genres.Salsa,
@@ -360,7 +353,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1992,
+            YearPublished = 1992,
             Name = "La voz",
             ArtistId = 4,
             Genre = Genres.Salsa,
@@ -368,7 +361,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1976,
+            YearPublished = 1976,
             Name = "El bárbaro",
             ArtistId = 4,
             Genre = Genres.Salsa,
@@ -376,7 +369,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1975,
+            YearPublished = 1975,
             Name = "El grande",
             ArtistId = 4,
             Genre = Genres.Salsa,
@@ -384,7 +377,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1979,
+            YearPublished = 1979,
             Name = "El teso",
             ArtistId = 4,
             Genre = Genres.Salsa,
@@ -395,7 +388,7 @@ async void PopulateDb(WebApplication app)
         #region Carlos Vives
         await albumService.CreateAlbum(new Album
         {
-            Year = 1993,
+            YearPublished = 1993,
             Name = "Clásicos de la Provincia",
             ArtistId = 5,
             Genre = Genres.Vallenato,
@@ -403,7 +396,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1995,
+            YearPublished = 1995,
             Name = "la Tierra del olvido",
             ArtistId = 5,
             Genre = Genres.Vallenato,
@@ -411,7 +404,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1997,
+            YearPublished = 1997,
             Name = "Tengo fe",
             ArtistId = 5,
             Genre = Genres.Vallenato,
@@ -419,7 +412,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 1999,
+            YearPublished = 1999,
             Name = "El amor de la tierra",
             ArtistId = 5,
             Genre = Genres.Vallenato,
@@ -427,7 +420,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2001,
+            YearPublished = 2001,
             Name = "Dejame entrar",
             ArtistId = 5,
             Genre = Genres.Vallenato,
@@ -435,7 +428,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2009,
+            YearPublished = 2009,
             Name = "Clásicos de la provincia",
             ArtistId = 5,
             Genre = Genres.Vallenato,
@@ -443,7 +436,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2020,
+            YearPublished = 2020,
             Name = "Cumbiana",
             ArtistId = 5,
             Genre = Genres.Vallenato,
@@ -451,7 +444,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2022,
+            YearPublished = 2022,
             Name = "Cumbiana II",
             ArtistId = 5,
             Genre = Genres.Vallenato,
@@ -462,7 +455,7 @@ async void PopulateDb(WebApplication app)
         #region Silvestre Dangond
         await albumService.CreateAlbum(new Album
         {
-            Year = 2002,
+            YearPublished = 2002,
             Name = "Tanto para ti",
             ArtistId = 6,
             Genre = Genres.Vallenato,
@@ -470,7 +463,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2003,
+            YearPublished = 2003,
             Name = "Lo mejor para los dos",
             ArtistId = 6,
             Genre = Genres.Vallenato,
@@ -478,7 +471,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2006,
+            YearPublished = 2006,
             Name = "el original",
             ArtistId = 6,
             Genre = Genres.Vallenato,
@@ -486,7 +479,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2010,
+            YearPublished = 2010,
             Name = "Cantinero",
             ArtistId = 6,
             Genre = Genres.Vallenato,
@@ -497,7 +490,7 @@ async void PopulateDb(WebApplication app)
         #region Fonseca
         await albumService.CreateAlbum(new Album
         {
-            Year = 2002,
+            YearPublished = 2002,
             Name = "Fonseca",
             ArtistId = 7,
             Genre = Genres.Pop,
@@ -505,7 +498,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2005,
+            YearPublished = 2005,
             Name = "Corazón",
             ArtistId = 7,
             Genre = Genres.Pop,
@@ -513,7 +506,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2008,
+            YearPublished = 2008,
             Name = "Gratitud",
             ArtistId = 7,
             Genre = Genres.Pop,
@@ -521,7 +514,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2011,
+            YearPublished = 2011,
             Name = "Ilusión",
             ArtistId = 7,
             Genre = Genres.Vallenato,
@@ -532,7 +525,7 @@ async void PopulateDb(WebApplication app)
         #region Maluma
         await albumService.CreateAlbum(new Album
         {
-            Year = 2012,
+            YearPublished = 2012,
             Name = "Magia",
             ArtistId = 8,
             Genre = Genres.Urban,
@@ -540,7 +533,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2015,
+            YearPublished = 2015,
             Name = "Pretty Boy, Dirty Boy",
             ArtistId = 8,
             Genre = Genres.Urban,
@@ -548,7 +541,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2018,
+            YearPublished = 2018,
             Name = "F.A.M.E.",
             ArtistId = 8,
             Genre = Genres.Urban,
@@ -556,7 +549,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2019,
+            YearPublished = 2019,
             Name = "11:11",
             ArtistId = 8,
             Genre = Genres.Urban,
@@ -564,7 +557,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2020,
+            YearPublished = 2020,
             Name = "Papi Juancho",
             ArtistId = 8,
             Genre = Genres.Urban,
@@ -572,7 +565,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2023,
+            YearPublished = 2023,
             Name = "Don Juan",
             ArtistId = 8,
             Genre = Genres.Vallenato,
@@ -583,7 +576,7 @@ async void PopulateDb(WebApplication app)
         #region Andrés Cepeda
         await albumService.CreateAlbum(new Album
         {
-            Year = 1999,
+            YearPublished = 1999,
             Name = "Se morir",
             ArtistId = 9,
             Genre = Genres.Pop,
@@ -591,7 +584,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2001,
+            YearPublished = 2001,
             Name = "El carpintero",
             ArtistId = 9,
             Genre = Genres.Pop,
@@ -599,7 +592,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2003,
+            YearPublished = 2003,
             Name = "Canción rota",
             ArtistId = 9,
             Genre = Genres.Pop,
@@ -607,7 +600,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2005,
+            YearPublished = 2005,
             Name = "Para amarte mejor",
             ArtistId = 9,
             Genre = Genres.Pop,
@@ -618,7 +611,7 @@ async void PopulateDb(WebApplication app)
         #region J Balvin
         await albumService.CreateAlbum(new Album
         {
-            Year = 2013,
+            YearPublished = 2013,
             Name = "la familia",
             ArtistId = 10,
             Genre = Genres.Urban,
@@ -626,7 +619,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2016,
+            YearPublished = 2016,
             Name = "Energía",
             ArtistId = 10,
             Genre = Genres.Urban,
@@ -634,7 +627,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2018,
+            YearPublished = 2018,
             Name = "Vibras",
             ArtistId = 10,
             Genre = Genres.Urban,
@@ -642,7 +635,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2020,
+            YearPublished = 2020,
             Name = "Colores",
             ArtistId = 10,
             Genre = Genres.Urban,
@@ -650,7 +643,7 @@ async void PopulateDb(WebApplication app)
         });
         await albumService.CreateAlbum(new Album
         {
-            Year = 2021,
+            YearPublished = 2021,
             Name = "Jose",
             ArtistId = 10,
             Genre = Genres.Urban,
@@ -658,6 +651,7 @@ async void PopulateDb(WebApplication app)
         });
         #endregion
 
+        // Songs
         #region Songs
         await songService.CreateSong(new Song
         {
@@ -685,6 +679,7 @@ async void PopulateDb(WebApplication app)
         });
         #endregion
 
+        // Tours
         #region Tour
         await tourService.CreateTour(new Tour
         {

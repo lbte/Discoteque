@@ -3,12 +3,10 @@
     using Application;
     using Application.IServices;
     using Domain.Dto;
-    using Domain.Models;
-    using Domain;
     using System.Net;
-    using Discoteque.Domain.Repositories;
-    using Discoteque.Domain.Artist.Entities;
-    using Discoteque.Domain.Tour.Entities;
+    using Domain.Repositories;
+    using Domain.Artist.Entities;
+    using Domain.Tour.Entities;
 
     public class TourService : ITourService
     {

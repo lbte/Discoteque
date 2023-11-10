@@ -5,19 +5,16 @@
     using Domain.Album.Dtos;
     using Domain.Album.Entities;
     using Shared.Exceptions;
-    //using Microsoft.Extensions.Logging;
     using Serilog;
 
     public class CreateAlbum : ICreateAlbum
     {
         private readonly IAlbumService _albumService;
         private readonly IArtistService _artistService;
-        //private readonly ILogger<CreateAlbum> _logger;
-        public CreateAlbum(IAlbumService albumService, IArtistService artistService)//, ILogger<CreateAlbum> logger)
+        public CreateAlbum(IAlbumService albumService, IArtistService artistService)
         {
             _albumService = albumService;
             _artistService = artistService;
-            //_logger = logger;
         }
 
         public async Task ExecuteAsync(AlbumDto albumDto)
@@ -45,7 +42,7 @@
                 ArtistId = artistId,
                 Cost = albumDto.Cost,
                 Genre = albumDto.Genre,
-                Year = albumDto.Year
+                YearPublished = albumDto.YearPublished
             };
 
              await _albumService.CreateAlbum(newAlbum);

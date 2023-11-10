@@ -1,8 +1,7 @@
 ﻿namespace Discoteque.API.Controllers
 {
     using Application.IServices;
-    using Discoteque.Domain.Artist.Entities;
-    using Domain.Models;
+    using Domain.Artist.Entities;
     using Microsoft.AspNetCore.Mvc;
     using System.Net;
 
@@ -14,7 +13,6 @@
 
         public ArtistController(IArtistService artistService)
         {
-            // se recibe la instancia llena para ejecutar los métodos cuando alguien haga una solicitud
             _artistService = artistService;
         }
 

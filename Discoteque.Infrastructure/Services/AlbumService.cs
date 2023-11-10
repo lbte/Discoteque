@@ -2,10 +2,9 @@
 {
     using Application;
     using Application.IServices;
-    using Discoteque.Domain.Artist.Entities;
+    using Domain.Artist.Entities;
     using Domain.Album.Entities;
     using Domain.Dto;
-    using Domain.Models;
     using Domain.Repositories;
     using System.Net;
     using System.Text.RegularExpressions;
@@ -25,15 +24,12 @@
         /// <param name="album">A new album entity</param>
         /// <returns>The created album with an assigned Id</returns>
         /// 
-        // public async Task<AlbumMessage> CreateAlbum(Album newAlbum)
         public async Task<EntityMessage<Album>> CreateAlbum(Album newAlbum)
         {
             try
             {
-                // the artist must exists
-                //var artist = await _unitOfWork.ArtistRepository.FindAsync(newAlbum.ArtistId);
                 // TODO DDD
-                if (newAlbum.Cost < 0 || newAlbum.Year < 1905 || newAlbum.Year > 2023 || AreForbiddenWordsContained(newAlbum.Name))
+                if (newAlbum.Cost < 0 || newAlbum.YearPublished < 1905 || newAlbum.YearPublished > 2023 || AreForbiddenWordsContained(newAlbum.Name))
                 {
                     return BuildResponseClass<Album>.BuildResponse(HttpStatusCode.BadRequest, EntityMessageStatus.BAD_REQUEST_400);
                 }
@@ -78,11 +74,6 @@
             return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.ArtistId == artistId, x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
         }
 
-        /// <summary>
-        /// Finds all albums released by <see cref="Artist.Name"/> 
-        /// </summary>
-        /// <param name="artist">The name of the artist</param>
-        /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
         public async Task<Album?> GetAlbumByNameAndArtistId(string albumName, int artistId)
         {
             return await _unitOfWork.AlbumRepository.GetEntityAsync(x => string.Equals(x.Name, albumName, StringComparison.OrdinalIgnoreCase) && x.ArtistId == artistId);
@@ -105,7 +96,7 @@
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
         public async Task<IEnumerable<Album>> GetAlbumsByYear(int year)
         {
-            return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.Year == year, x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
+            return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.YearPublished == year, x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
         }
 
         /// <summary>
@@ -116,7 +107,7 @@
         /// <returns>A <see cref="List"/> of <see cref="Album"/></returns>
         public async Task<IEnumerable<Album>> GetAlbumsByYearRange(int initialYear, int maxYear)
         {
-            return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.Year >= initialYear && x.Year <= maxYear, x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
+            return await _unitOfWork.AlbumRepository.GetAllAsync(x => x.YearPublished >= initialYear && x.YearPublished <= maxYear, x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
         }
 
         /// <summary>
