@@ -6,6 +6,8 @@
     using Infrastructure.Repositories;
     using Infrastructure.Services;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Configuration;
+
     public static class ConfigureServices
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services) =>

@@ -4,6 +4,7 @@
     using IServices;
     using Domain.Album.Dtos;
     using Domain.Album.Entities;
+    using Domain.Shared.Events;
     using Shared.Exceptions;
     using Serilog;
 
@@ -11,15 +12,20 @@
     {
         private readonly IAlbumService _albumService;
         private readonly IArtistService _artistService;
-        public CreateAlbum(IAlbumService albumService, IArtistService artistService)
+        private readonly IGenericEventBuilder<Album> _eventBuilder;
+
+        public CreateAlbum(IAlbumService albumService, 
+            IArtistService artistService,
+            IGenericEventBuilder<Album> eventBuilder)
         {
             _albumService = albumService;
             _artistService = artistService;
+            _eventBuilder = eventBuilder;
         }
 
         public async Task ExecuteAsync(AlbumDto albumDto)
         {
-            Log.Information("Entering Create Album");
+            Log.Information("Album Created use case started");
             var artistId = albumDto.ArtistId;
             var artist = await _artistService.GetById(artistId);
             if (artist is null)
@@ -45,6 +51,7 @@
                 YearPublished = albumDto.YearPublished
             };
 
+             await _eventBuilder.PublishAsync(newAlbum);
              await _albumService.CreateAlbum(newAlbum);
         }
     }
