@@ -1,12 +1,12 @@
 ﻿namespace Discoteque.Infrastructure.MessageBroker.Kafka.Builders.Album
 {
     using Domain.Shared.Events;
-    using Domain.Album.Entities;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using MessageBroker.Kafka.Config;
     using System.Text.Json;
+    using Domain.Album.Entities;
 
     public class AlbumCreatedBuilder : IGenericEventBuilder<Album>
     {
@@ -28,7 +28,9 @@
             _logger.LogInformation("Generating event for Album Created {operatingParameter}", record);
             _logger.LogInformation("topic name:{_topicName}", _topicName);
             var body = JsonSerializer.Serialize(record);
-            await _publisher.PublishAsync(body, _topicName);
+            //var id = record.ArtistId.ToString();
+            var id = Guid.NewGuid().ToString();
+            await _publisher.PublishAsync(body, id, _topicName);
             _logger.LogInformation("Process complete, Album created successfully published");
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace Discoteque.Infrastructure.Extensions
 {
     using Confluent.Kafka;
+    using Discoteque.Domain.Album.Entities;
     using Discoteque.Infrastructure.MessageBroker.Kafka.Config;
-    using Domain.Album.Entities;
     using Domain.Shared.Events;
     using MessageBroker.Kafka;
     using MessageBroker.Kafka.Builders.Album;

@@ -2,6 +2,6 @@
 {
     public interface IPublisher<in T>
     {
-        Task PublishAsync(T message, string topicName);
+        Task PublishAsync(T message, string id, string topicName);
     }
 }

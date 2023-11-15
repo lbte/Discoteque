@@ -2,6 +2,7 @@
 {
     using Confluent.Kafka;
     using Microsoft.Extensions.Logging;
+
     public class StringPublisher : IPublisher<string>
     {
         private readonly IProducer<string, string> _kafkaPublisher;
@@ -13,14 +14,15 @@
             _logger = logger;
         }
 
-        public async Task PublishAsync(string message, string topicName)
+        public async Task PublishAsync(string message, string id, string topicName)
         {
-            _logger.LogInformation("Publishing event into topic {topic}", topicName);
+            _logger.LogInformation("Publishing event with id {id} into topic {topic}", id, topicName);
             await _kafkaPublisher.ProduceAsync(topicName, new()
             {
+                Key = id,
                 Value = message
             });
-            _logger.LogInformation("Event successfully published");
+            _logger.LogInformation("Event with id {id} successfully published", id);
         }
     }
 }
