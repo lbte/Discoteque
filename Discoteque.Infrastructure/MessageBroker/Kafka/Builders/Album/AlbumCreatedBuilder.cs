@@ -30,6 +30,7 @@
             var body = JsonSerializer.Serialize(record);
             //var id = record.ArtistId.ToString();
             var id = Guid.NewGuid().ToString();
+            //string? id = null;
             await _publisher.PublishAsync(body, id, _topicName);
             _logger.LogInformation("Process complete, Album created successfully published");
         }
