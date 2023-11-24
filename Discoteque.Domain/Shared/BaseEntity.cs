@@ -1,4 +1,4 @@
-﻿namespace Discoteque.Domain.Models
+﻿namespace Discoteque.Domain.Shared
 {
     using System.ComponentModel.DataAnnotations;
     public class BaseEntity<TId> where TId : struct

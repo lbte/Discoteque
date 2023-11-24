@@ -1,6 +1,6 @@
 ﻿namespace Discoteque.Domain.Repositories
 {
-    using Models;
+    using Discoteque.Domain.Shared;
     using System.Linq.Expressions;
 
     public interface IRepository<Tid, TEntity>

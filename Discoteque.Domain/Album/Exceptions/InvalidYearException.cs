@@ -1,6 +1,6 @@
 ﻿namespace Discoteque.Domain.Album.Exceptions
 {
-    using Shared.Exceptions;
+    using Shared.Exceptions.Base;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.Serialization;
 

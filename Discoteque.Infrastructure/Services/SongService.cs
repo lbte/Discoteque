@@ -2,11 +2,11 @@
 {
     using Application;
     using Application.IServices;
-    using Domain.Dto;
     using System.Net;
     using Domain.Album.Entities;
     using Domain.Repositories;
     using Domain.Song.Entities;
+    using Discoteque.Domain.Shared;
 
     public class SongService : ISongService
     {

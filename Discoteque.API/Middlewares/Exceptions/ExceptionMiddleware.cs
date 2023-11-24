@@ -1,6 +1,7 @@
 ﻿namespace Discoteque.API.Middlewares.Exceptions
 {
     using Application.Shared.Exceptions;
+    using Domain.Shared.Exceptions;
     using Domain.Album.Exceptions;
     using Serilog;
     using System.Net;
@@ -16,6 +17,16 @@
             try
             {
                 await _next(httpContext);
+            }
+            catch (EmptyOrWhiteSpaceException ex)
+            {
+                Log.Error($"Something went wrong: {ex}");
+                await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest);
+            }
+            catch (NullException ex)
+            {
+                Log.Error($"Something went wrong: {ex}");
+                await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest);
             }
             catch (NotFoundException ex)
             {

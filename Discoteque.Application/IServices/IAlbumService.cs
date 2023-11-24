@@ -1,5 +1,6 @@
 ﻿namespace Discoteque.Application.IServices
 {
+    using Discoteque.Domain.Shared;
     using Domain.Album.Entities;
     using Domain.Dto;
     public interface IAlbumService

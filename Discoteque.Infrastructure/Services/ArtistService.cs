@@ -2,10 +2,10 @@
 {
     using Application.IServices;
     using Application;
-    using Domain.Dto;
     using System.Net;
     using Discoteque.Domain.Repositories;
     using Discoteque.Domain.Artist.Entities;
+    using Discoteque.Domain.Shared;
 
     public class ArtistService : IArtistService
     {

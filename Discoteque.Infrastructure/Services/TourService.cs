@@ -2,11 +2,11 @@
 {
     using Application;
     using Application.IServices;
-    using Domain.Dto;
     using System.Net;
     using Domain.Repositories;
     using Domain.Artist.Entities;
     using Domain.Tour.Entities;
+    using Discoteque.Domain.Shared;
 
     public class TourService : ITourService
     {

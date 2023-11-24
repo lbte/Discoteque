@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Discoteque.Domain.Dto
+namespace Discoteque.Domain.Shared
 {
     public class EntityMessage<TEntity>
     {

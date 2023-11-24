@@ -1,9 +1,9 @@
 ﻿
 namespace Discoteque.Domain.Song.Entities
 {
-    using Models;
     using System.ComponentModel.DataAnnotations.Schema;
     using Album.Entities;
+    using Discoteque.Domain.Shared;
 
     public class Song : BaseEntity<int>
     {

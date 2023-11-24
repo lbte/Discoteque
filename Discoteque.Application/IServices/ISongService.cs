@@ -2,6 +2,8 @@
 {
     using Domain.Song.Entities;
     using Domain.Dto;
+    using Discoteque.Domain.Shared;
+
     public interface ISongService
     {
         Task<IEnumerable<Song>> GetSongsAsync(bool areReferencesLoaded);

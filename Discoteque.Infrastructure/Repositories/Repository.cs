@@ -1,10 +1,10 @@
 ﻿namespace Discoteque.Infrastructure.Repositories
 {
     using Domain.Repositories;
-    using Domain.Models;
     using EntityFramework;
     using Microsoft.EntityFrameworkCore;
     using System.Linq.Expressions;
+    using Domain.Shared;
 
     public class Repository<Tid, TEntity> : IRepository<Tid, TEntity>
     where Tid : struct

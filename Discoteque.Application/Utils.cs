@@ -1,6 +1,6 @@
 ﻿namespace Discoteque.Application
 {
-    using Domain.Dto;
+    using Domain.Shared;
     using System.Net;
     public class Utils
     {

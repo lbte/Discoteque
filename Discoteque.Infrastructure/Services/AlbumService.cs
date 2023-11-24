@@ -4,10 +4,10 @@
     using Application.IServices;
     using Domain.Artist.Entities;
     using Domain.Album.Entities;
-    using Domain.Dto;
     using Domain.Repositories;
     using System.Net;
     using System.Text.RegularExpressions;
+    using Domain.Shared;
 
     public class AlbumService : IAlbumService
     {

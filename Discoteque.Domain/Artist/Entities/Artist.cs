@@ -1,6 +1,6 @@
 ﻿namespace Discoteque.Domain.Artist.Entities
 {
-    using Models;
+    using Discoteque.Domain.Shared;
     public class Artist : BaseEntity<int>
     {
         public string Name { get; set; } = "";

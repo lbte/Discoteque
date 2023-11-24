@@ -1,4 +1,4 @@
-﻿namespace Discoteque.Domain.Shared.Exceptions
+﻿namespace Discoteque.Domain.Shared.Exceptions.Base
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.Serialization;

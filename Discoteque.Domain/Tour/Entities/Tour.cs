@@ -1,9 +1,9 @@
 ﻿
 namespace Discoteque.Domain.Tour.Entities
 {
-    using Models;
     using System.ComponentModel.DataAnnotations.Schema;
     using Artist.Entities;
+    using Discoteque.Domain.Shared;
 
     public class Tour : BaseEntity<int>
     {
