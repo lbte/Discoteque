@@ -1,84 +1,82 @@
-﻿using Discoteque.Application.IServices;
-using Discoteque.Domain.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
-namespace Discoteque.API.Controllers
+﻿namespace Discoteque.API.Controllers
 {
+    using Application.AlbumUseCase.Interfaces;
+    using Application.IServices;
+    using Domain.Album.Dtos;
+    using Domain.Album.Entities;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/[controller]")]
     [ApiController]
     public class AlbumController : ControllerBase
     {
-        private readonly IAlbumService _albumService;
+        private readonly ICreateAlbum _createAlbum;
+        private readonly IGetAlbum _getAlbum;
+        private readonly IUpdateAlbum _updateAlbum;
 
-        public AlbumController(IAlbumService albumService)
+        public AlbumController(ICreateAlbum createAlbum, IGetAlbum getAlbum, IUpdateAlbum updateAlbum, IAlbumService albumService)
         {
-            _albumService = albumService;
+            _createAlbum = createAlbum;
+            _getAlbum = getAlbum;
+            _updateAlbum = updateAlbum;
         }
 
         [HttpGet]
-        [Route("GetAlbums")]
         public async Task<IActionResult> GetAlbums(bool areReferencesLoaded = false)
         {
-            var albums = await _albumService.GetAlbumsAsync(areReferencesLoaded);
+            var albums = await _getAlbum.AllAsync(areReferencesLoaded);
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, "There were no albums found to show");
         }
 
-        [HttpGet]
-        [Route("GetAlbumById")]
+        [HttpGet("id={id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAlbumById(int id)
         {
-            var album = await _albumService.GetById(id);
+            var album = await _getAlbum.ByIdAsync(id);
             return album != null ? Ok(album) : StatusCode(StatusCodes.Status404NotFound, $"There was no album found with the Id number {id}");
         }
 
-        [HttpGet]
-        [Route("GetAlbumsByYear")]
+        [HttpGet("year={year}")]
         public async Task<IActionResult> GetAlbumsByYear(int year)
         {
-            var albums = await _albumService.GetAlbumsByYear(year);
-            //if the albums list is not empty show success, otherwise show message
+            var albums = await _getAlbum.ByYearAsync(year); 
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, "There were no albums found in this year");
         }
 
-        [HttpGet]
-        [Route("GetAlbumsByYearRange")]
+        [HttpGet("initialYear={initialYear}&finalYear={maxYear}")]
         public async Task<IActionResult> GetAlbumsByYearRange(int initialYear, int maxYear)
         {
-            var albums = await _albumService.GetAlbumsByYearRange(initialYear, maxYear);
+            var albums = await _getAlbum.ByYearRangeAsync(initialYear, maxYear);
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, "There were no albums found in this year range");
         }
 
-        [HttpGet]
-        [Route("GetAlbumsByGenre")]
+        [HttpGet("genre={genre}")]
         public async Task<IActionResult> GetAlbumsByGenre(Genres genre)
         {
-            var albums = await _albumService.GetAlbumsByGenre(genre);
+            var albums = await _getAlbum.ByGenreAsync(genre);
             return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, $"There were no albums found with the genre {genre}");
         }
 
-        [HttpGet]
-        [Route("GetAlbumsByArtist")]
-        public async Task<IActionResult> GetAlbumsByArtist(string artist)
+        [HttpGet("artistId={artistId}")]
+        public async Task<IActionResult> GetAlbumsByArtist(int artistId)
         {
-            var albums = await _albumService.GetAlbumsByArtist(artist);
-            return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, $"There were no albums found from the artist {artist}");
+            var albums = await _getAlbum.ByArtistAsync(artistId);
+            return albums.Any() ? Ok(albums) : StatusCode(StatusCodes.Status404NotFound, $"There were no albums found from the artist {artistId}");
         }
 
         [HttpPost]
-        [Route("CreateAlbum")]
-        public async Task<IActionResult> CreateAlbum(Album album)
+        public async Task<IActionResult> CreateAlbum(AlbumDto album)
         {
-            var newAlbum = await _albumService.CreateAlbum(album);
-            return newAlbum.StatusCode == HttpStatusCode.OK ? Ok(newAlbum) : StatusCode((int)newAlbum.StatusCode, newAlbum);
+            await _createAlbum.ExecuteAsync(album);
+            return Ok("Album created successfully");
         }
 
         [HttpPatch]
-        [Route("UpdateAlbum")]
-        public async Task<IActionResult> UpdateAlbum(Album album)
+        public async Task<ActionResult<Album>> UpdateAlbum(AlbumDto album)
         {
-            var updatedAlbum = await _albumService.UpdateAlbum(album);
-            return updatedAlbum != null ? Ok(updatedAlbum) : StatusCode(StatusCodes.Status404NotFound, "The album was not updated"); ;
+            var updatedAlbum = await _updateAlbum.ExecuteAsync(album);
+            return Ok(updatedAlbum);
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿using Discoteque.Application.IServices;
-using Discoteque.Domain.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
-namespace Discoteque.API.Controllers
+﻿namespace Discoteque.API.Controllers
 {
+    using Application.IServices;
+    using Domain.Tour.Entities;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Net;
+
+    [Route("api/[controller]")]
+    [ApiController]
     public class TourController : ControllerBase
     {
         private readonly ITourService _tourService;
@@ -14,8 +16,7 @@ namespace Discoteque.API.Controllers
             _tourService = tourService;
         }
 
-        [HttpGet]
-        [Route("GetTourById")]
+        [HttpGet("id={id}")]
         public async Task<IActionResult> GetTourById(int id)
         {
             var tour = await _tourService.GetTourById(id);
@@ -23,31 +24,27 @@ namespace Discoteque.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetTours")]
         public async Task<IActionResult> GetTours(bool areReferencesLoaded = false)
         {
             var tours = await _tourService.GetToursAsync(areReferencesLoaded);
             return tours.Any() ? Ok(tours) : StatusCode(StatusCodes.Status404NotFound, "There were no tours found to show");
         }
 
-        [HttpGet]
-        [Route("GetToursByYear")]
+        [HttpGet("year={year}")]
         public async Task<IActionResult> GetToursByYear(int year)
         {
             var tours = await _tourService.GetToursByYear(year);
             return tours.Any() ? Ok(tours) : StatusCode(StatusCodes.Status404NotFound, $"There were no tours found for the year {year}");
         }
 
-        [HttpGet]
-        [Route("GetToursByArtist")]
+        [HttpGet("artistiId={artistId}")]
         public async Task<IActionResult> GetToursByArtist(int artistId)
         {
             var tours = await _tourService.GetToursByArtist(artistId);
             return tours.Any() ? Ok(tours) : StatusCode(StatusCodes.Status404NotFound, "There were no tours found for this artist");
         }
 
-        [HttpGet]
-        [Route("GetToursByCity")]
+        [HttpGet("city={city}")]
         public async Task<IActionResult> GetToursByCity(string city)
         {
             var tours = await _tourService.GetToursByCity(city);
@@ -55,7 +52,6 @@ namespace Discoteque.API.Controllers
         }
 
         [HttpPost]
-        [Route("CreateTour")]
         public async Task<IActionResult> CreateTour(Tour tour)
         {
             var newTour = await _tourService.CreateTour(tour);
@@ -63,7 +59,6 @@ namespace Discoteque.API.Controllers
         }
 
         [HttpPatch]
-        [Route("UpdateTour")]
         public async Task<IActionResult> UpdateTour(Tour tour)
         {
             var updatedTour = await _tourService.UpdateTour(tour);

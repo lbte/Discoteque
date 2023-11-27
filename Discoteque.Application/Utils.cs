@@ -1,8 +1,7 @@
-﻿using Discoteque.Domain.Dto;
-using System.Net;
-
-namespace Discoteque.Application
+﻿namespace Discoteque.Application
 {
+    using Domain.Shared;
+    using System.Net;
     public class Utils
     {
         public static string GetLenghtInMinuteNotation(int seconds)

@@ -1,10 +1,11 @@
-﻿using Discoteque.Application.IServices;
-using Discoteque.Domain.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
+﻿
 namespace Discoteque.API.Controllers
 {
+    using Application.IServices;
+    using Domain.Song.Entities;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Net;
+
     [Route("api/[controller]")]
     [ApiController]
     public class SongController : ControllerBase
@@ -16,8 +17,7 @@ namespace Discoteque.API.Controllers
             _songService = songService;
         }
 
-        [HttpGet]
-        [Route("GetSongById")]
+        [HttpGet("id={id}")]
         public async Task<IActionResult> GetSongById(int id)
         {
             var song = await _songService.GetById(id);
@@ -25,7 +25,6 @@ namespace Discoteque.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetSongs")]
         public async Task<IActionResult> GetSongs(bool areReferencesLoaded = false)
         {
             var songs = await _songService.GetSongsAsync(areReferencesLoaded);
@@ -33,16 +32,14 @@ namespace Discoteque.API.Controllers
         }
 
 
-        [HttpGet]
-        [Route("GetSongsByAlbum")]
+        [HttpGet("albumId={albumId}")]
         public async Task<IActionResult> GetSongsByAlbum(int albumId)
         {
             var songs = await _songService.GetSongsByAlbum(albumId);
             return songs.Any() ? Ok(songs) : StatusCode(StatusCodes.Status404NotFound, "There were no songs in this album");
         }
 
-        [HttpGet]
-        [Route("GetSongsByYear")]
+        [HttpGet("year={year}")]
         public async Task<IActionResult> GetSongsByYear(int year)
         {
             var songs = await _songService.GetSongsByYear(year);
@@ -50,7 +47,6 @@ namespace Discoteque.API.Controllers
         }
 
         [HttpPost]
-        [Route("CreateSong")]
         public async Task<IActionResult> CreateSong(Song song)
         {
             var newSong = await _songService.CreateSong(song);
@@ -66,7 +62,6 @@ namespace Discoteque.API.Controllers
         }
 
         [HttpPatch]
-        [Route("UpdateSong")]
         public async Task<IActionResult> UpdateSong(Song song)
         {
             var updatedSong = await _songService.UpdateSong(song);
