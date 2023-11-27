@@ -3,9 +3,9 @@
     using Application.IServices;
     using Application;
     using System.Net;
-    using Discoteque.Domain.Repositories;
-    using Discoteque.Domain.Artist.Entities;
-    using Discoteque.Domain.Shared;
+    using Domain.Repositories;
+    using Domain.Artist.Entities;
+    using Domain.Shared;
 
     public class ArtistService : IArtistService
     {

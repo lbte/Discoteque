@@ -4,11 +4,12 @@
     using Shared.ValueObjects;
     public sealed class Name : StringValueObject
     {
-        public Name() { }
-
         public Name(string name) : base(name)
         {
-            if (string.IsNullOrEmpty(name)) throw new EmptyOrWhiteSpaceException(nameof(name));  
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new EmptyOrWhiteSpaceException(nameof(name));
+            }
             Value = name;
         }
 

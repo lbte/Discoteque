@@ -1,6 +1,6 @@
 ﻿namespace Discoteque.Domain.Album.ValueObjects
 {
-    using Discoteque.Domain.Album.Exceptions;
+    using Exceptions;
     using Shared.ValueObjects;
     public sealed class YearPublished : IntegerValueObject
     {

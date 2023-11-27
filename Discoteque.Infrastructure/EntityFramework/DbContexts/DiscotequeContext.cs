@@ -1,5 +1,6 @@
-﻿namespace Discoteque.Infrastructure.EntityFramework
+﻿namespace Discoteque.Infrastructure.EntityFramework.DbContexts
 {
+    using ModelBuilders;
     using Domain.Album.Entities;
     using Domain.Artist.Entities;
     using Domain.Song.Entities;
@@ -24,8 +25,8 @@
                 return;
             }
 
+            builder.Entity<Album>().Configure();
             builder.Entity<Artist>().ToTable("Artist").HasKey(k => k.Id);
-            builder.Entity<Album>().ToTable("Album").HasKey(k => k.Id);
             builder.Entity<Song>().ToTable("Song").HasKey(k => k.Id);
             builder.Entity<Tour>().ToTable("Tour").HasKey(k => k.Id);
             base.OnModelCreating(builder);

@@ -9,7 +9,7 @@
             Value = string.IsNullOrWhiteSpace(stringObject) ? string.Empty : stringObject.Trim();
         }
 
-        protected string Value { get; set; }
+        public string Value { get; protected set; }
         protected override IEnumerable<object> EqualityComponents
         {
             get { yield return Value; }
@@ -46,6 +46,13 @@
             }
 
             return !thisValues.MoveNext() && !otherValues.MoveNext();
+        }
+
+        public override int GetHashCode()
+        {
+            return EqualityComponents
+                .Select(x => x != null ? x.GetHashCode() : 0)
+                .Aggregate((x, y) => x ^ y);
         }
 
         public override string ToString()

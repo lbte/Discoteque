@@ -1,8 +1,8 @@
-using Discoteque.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Discoteque.Infrastructure.Extensions;
 using Discoteque.API.Middlewares.Exceptions;
 using Serilog;
+using Discoteque.Infrastructure.EntityFramework.DbContexts;
 
 var builder = WebApplication.CreateBuilder(args);
 

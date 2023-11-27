@@ -1,8 +1,7 @@
 ﻿namespace Discoteque.Application.IServices
 {
-    using Discoteque.Domain.Shared;
+    using Domain.Shared;
     using Domain.Artist.Entities;
-    using Domain.Dto;
     public interface IArtistService
     {
         Task<IEnumerable<Artist>> GetArtistsAsync();

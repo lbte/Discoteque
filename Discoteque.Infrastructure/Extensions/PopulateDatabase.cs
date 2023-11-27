@@ -109,7 +109,8 @@
                     YearPublished = 2019,
                     Name = "Ocean",
                     ArtistId = 1,
-                    Genre = Genres.Urban
+                    Genre = Genres.Urban,
+                    Cost = new Random().Next(1, 9) * 10_000
                 });
                 await albumService.CreateAlbum(new Album
                 {

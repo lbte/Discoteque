@@ -3,7 +3,6 @@
     using Shared.ValueObjects;
     public sealed class Cost : DecimalValueObject
     {
-        public Cost() { }
 
         public Cost(double cost) : base(cost)
         {

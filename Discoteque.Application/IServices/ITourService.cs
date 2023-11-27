@@ -1,8 +1,7 @@
 ﻿namespace Discoteque.Application.IServices
 {
     using Domain.Tour.Entities;
-    using Domain.Dto;
-    using Discoteque.Domain.Shared;
+    using Domain.Shared;
 
     public interface ITourService
     {

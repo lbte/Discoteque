@@ -3,6 +3,10 @@
     using Discoteque.Domain.Shared;
     public class Artist : BaseEntity<int>
     {
+        public Artist()
+        {
+            
+        }
         public string Name { get; set; } = "";
         /// <summary>
         /// The record company where the artist publishes their work

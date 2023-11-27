@@ -29,10 +29,10 @@
             try
             {
                 // TODO DDD
-                if (newAlbum.Cost < 0 || newAlbum.YearPublished < 1905 || newAlbum.YearPublished > 2023 || AreForbiddenWordsContained(newAlbum.Name))
-                {
-                    return BuildResponseClass<Album>.BuildResponse(HttpStatusCode.BadRequest, EntityMessageStatus.BAD_REQUEST_400);
-                }
+                //if (newAlbum.Cost < 0 || newAlbum.YearPublished < 1905 || newAlbum.YearPublished > 2023 || AreForbiddenWordsContained(newAlbum.Name))
+                //{
+                //    return BuildResponseClass<Album>.BuildResponse(HttpStatusCode.BadRequest, EntityMessageStatus.BAD_REQUEST_400);
+                //}
 
                 await _unitOfWork.AlbumRepository.AddAsync(newAlbum);
                 await _unitOfWork.SaveAsync();

@@ -44,6 +44,11 @@
                 Log.Error($"Something went wrong: {ex}");
                 await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest);
             }
+            catch (ArgumentException ex)
+            {
+                Log.Error($"Something went wrong: {ex}");
+                await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest);
+            }
             catch (Exception ex)
             {
                 Log.Error($"Something went wrong: {ex}");

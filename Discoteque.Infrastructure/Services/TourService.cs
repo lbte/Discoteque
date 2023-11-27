@@ -6,7 +6,7 @@
     using Domain.Repositories;
     using Domain.Artist.Entities;
     using Domain.Tour.Entities;
-    using Discoteque.Domain.Shared;
+    using Domain.Shared;
 
     public class TourService : ITourService
     {

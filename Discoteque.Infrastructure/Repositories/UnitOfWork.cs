@@ -1,11 +1,11 @@
 ﻿namespace Discoteque.Infrastructure.Repositories
 {
+    using EntityFramework.DbContexts;
     using Domain.Album.Entities;
     using Domain.Artist.Entities;
     using Domain.Repositories;
     using Domain.Song.Entities;
     using Domain.Tour.Entities;
-    using EntityFramework;
     using Microsoft.EntityFrameworkCore;
 
     public class UnitOfWork : IUnitOfWork

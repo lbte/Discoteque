@@ -1,7 +1,6 @@
-﻿using System.Net;
-
-namespace Discoteque.Domain.Shared
+﻿namespace Discoteque.Domain.Shared
 {
+    using System.Net;
     public class EntityMessage<TEntity>
     {
         public string Message { get; set; } = "";

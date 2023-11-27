@@ -26,6 +26,13 @@
             return EqualityComponents.SequenceEqual(other.EqualityComponents);
         }
 
+        public override int GetHashCode()
+        {
+            return EqualityComponents
+                .Select(x => x != null ? x.GetHashCode() : 0)
+                .Aggregate((x, y) => x ^ y);
+        }
+
         public static bool operator ==(ValueObject x, ValueObject y)
         {
             return EqualOperator(x, y);
